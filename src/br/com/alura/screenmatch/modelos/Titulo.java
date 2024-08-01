@@ -1,5 +1,7 @@
 package br.com.alura.screenmatch.modelos;
 
+import br.com.alura.screenmatch.principal.PrincipalComBusca;
+
 public class Titulo implements Comparable<Titulo> {
     private String nome;
     private int anoDeLancamento;
@@ -11,6 +13,12 @@ public class Titulo implements Comparable<Titulo> {
     public Titulo(String nome, int anoDeLancamento) {
         this.nome = nome;
         this.anoDeLancamento = anoDeLancamento;
+    }
+
+    public Titulo(FilmeOmdb filmeOmdb) {
+        this.nome = filmeOmdb.title();
+        this.anoDeLancamento = Integer.parseInt(filmeOmdb.year());
+        this.duracaoEmMinutos = Integer.parseInt(filmeOmdb.runtime().substring(0, 2));
     }
 
     public String getNome() {
@@ -66,5 +74,12 @@ public class Titulo implements Comparable<Titulo> {
     @Override
     public int compareTo(Titulo outroTitulo) {
         return this.getNome().compareTo(outroTitulo.getNome());
+    }
+
+    @Override
+    public String toString() {
+        return "Titulo: " + nome + '\'' +
+                ", ano de lancamento: " + anoDeLancamento +
+                ", duração em minutos: " + duracaoEmMinutos;
     }
 }

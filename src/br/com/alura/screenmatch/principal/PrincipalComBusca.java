@@ -1,5 +1,11 @@
 package br.com.alura.screenmatch.principal;
 
+import br.com.alura.screenmatch.modelos.FilmeOmdb;
+import br.com.alura.screenmatch.modelos.Titulo;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -13,7 +19,6 @@ public class PrincipalComBusca {
         System.out.println("Digite um filme para busca:");
         String tituloDigitado = sc.nextLine();
         String tituloDigitadoFormatado = tituloDigitado.replace(" ", "+");
-        System.out.println(tituloDigitadoFormatado);
 
         String endereco = "https://www.omdbapi.com/?t=" + tituloDigitadoFormatado + "&apikey=39309093";
 
@@ -23,7 +28,14 @@ public class PrincipalComBusca {
                 .build();
         HttpResponse<String> response = client
                 .send(request, HttpResponse.BodyHandlers.ofString());
-        System.out.println(response.body());
+
+        String json = response.body();
+
+        Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
+        FilmeOmdb filmeOmdb = gson.fromJson(json, FilmeOmdb.class);
+        System.out.println(filmeOmdb);
+//        Titulo titulo = new Titulo(filmeOmdb);
+//        System.out.println(titulo);
 
     }
 }
