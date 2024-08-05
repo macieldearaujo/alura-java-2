@@ -1,5 +1,7 @@
 package br.com.alura.screenmatch.principal;
 
+import br.com.alura.screenmatch.exception.ErroConversaoAnoException;
+import br.com.alura.screenmatch.modelos.Filme;
 import br.com.alura.screenmatch.modelos.FilmeOmdb;
 import br.com.alura.screenmatch.modelos.Titulo;
 import com.google.gson.FieldNamingPolicy;
@@ -34,6 +36,18 @@ public class PrincipalComBusca {
         Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
         FilmeOmdb filmeOmdb = gson.fromJson(json, FilmeOmdb.class);
         System.out.println(filmeOmdb);
+
+        try {
+            Titulo meuTitulo = new Titulo(filmeOmdb);
+            System.out.println("Título convertido!");
+            System.out.println(meuTitulo);
+        } catch (NumberFormatException e) {
+            System.out.println("Erro ao converter: " + e.getMessage());
+        } catch(ErroConversaoAnoException e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("O programa finalizou corretamente!");
 //        Titulo titulo = new Titulo(filmeOmdb);
 //        System.out.println(titulo);
 

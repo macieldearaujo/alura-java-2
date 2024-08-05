@@ -1,5 +1,6 @@
 package br.com.alura.screenmatch.modelos;
 
+import br.com.alura.screenmatch.exception.ErroConversaoAnoException;
 import br.com.alura.screenmatch.principal.PrincipalComBusca;
 
 public class Titulo implements Comparable<Titulo> {
@@ -17,7 +18,10 @@ public class Titulo implements Comparable<Titulo> {
 
     public Titulo(FilmeOmdb filmeOmdb) {
         this.nome = filmeOmdb.title();
-        this.anoDeLancamento = Integer.parseInt(filmeOmdb.year());
+        if(filmeOmdb.year().length() > 4) {
+            throw new ErroConversaoAnoException("Erro ao converter o ano, porque ele tem mais de 4 caracteres");
+        }
+            this.anoDeLancamento = Integer.parseInt(filmeOmdb.year());
         this.duracaoEmMinutos = Integer.parseInt(filmeOmdb.runtime().substring(0, 2));
     }
 
