@@ -1,4 +1,4 @@
-package br.com.alura.screenmatch.exercises;
+package br.com.alura.screenmatch.exercises.principal;
 
 import java.util.Scanner;
 
