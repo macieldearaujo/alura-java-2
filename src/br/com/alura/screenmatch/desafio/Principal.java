@@ -20,6 +20,8 @@ public class Principal {
         BuscaCep buscaCep = new BuscaCep();
         Endereco endereco = buscaCep.buscaEndereco(cep);
 
-        System.out.println(endereco);
+        GravaArquivo gerador = new GravaArquivo();
+        gerador.geraArquivoJson(endereco);
+        System.out.println("Arquivo gerado com sucesso!");
     }
 }
